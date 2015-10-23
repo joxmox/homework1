@@ -57,12 +57,38 @@ void testLoadStoreFunctions() {
 
 }
 
+void testLoadStoreFunctions2() {
+	struct AdvancedRecord {
+		unsigned iValue;
+		double dValue;
+		float fValue;
+	};
+	string filename(tmpnam(NULL));
+	for(int index=0;index<10; index++) {
+		AdvancedRecord ar = {index, 1.11111d + index, 1.22222f + index};
+		cout << "int: " << ar.iValue << " double: "<< ar.dValue << " float: " << ar.fValue << endl;
+		seb::io::store(filename, index, sizeof(AdvancedRecord), reinterpret_cast<char*>(&ar));
+	}
+
+
+	AdvancedRecord out_record;
+	for(int index=0;index<10; index++) {
+		seb::io::load(filename, index, sizeof(AdvancedRecord), reinterpret_cast<char*>(&out_record));
+		cout << "int: " << out_record.iValue << " double: "<< out_record.dValue << " float: " << out_record.fValue << endl;
+	}
+	seb::io::load(filename, 4, sizeof(AdvancedRecord), reinterpret_cast<char*>(&out_record));
+	cout << "int: " << out_record.iValue << " double: "<< out_record.dValue << " float: " << out_record.fValue << endl;
+	assert( out_record.iValue == 4 && out_record.dValue == 5.11111d && out_record.fValue == 5.22222f );
+	remove(filename.c_str());
+
+}
+
 int main(int argc, char* argv[]) {
 	testTextFunctions();
 	testLinesFunctions();
 	testSizeFunctions();
 	testLoadStoreFunctions();
-
+	testLoadStoreFunctions2();
 
 	cout << "All test completed." << endl;
 	return 0;
