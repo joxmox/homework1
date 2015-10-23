@@ -57,7 +57,7 @@ void testLoadStoreFunctions() {
 
 }
 
-int main2(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 	testTextFunctions();
 	testLinesFunctions();
 	testSizeFunctions();
