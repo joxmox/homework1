@@ -33,4 +33,7 @@ g++ ${CXX_FLAGS} -c ${SRCLIB}/IOUtils.cpp -o ${OBJS}/IOUtils.o
 g++ ${CXX_FLAGS} -c ${SRCLIB}/GenUtils.cpp -o ${OBJS}/GenUtils.o
 g++ ${CXX_FLAGS} -c ${SRCTST}/GenTest.cpp -I${SRCLIB} -o ${OBJS}/GenTest.o
 
+###
+### Linking
+###
 g++ ${OBJS}/GenUtils.o ${OBJS}/GenTest.o -o ${BIN}/GenTest
