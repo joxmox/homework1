@@ -36,7 +36,7 @@ namespace seb {
 		}
 		double nextUniform(double lb, double ub) {
 			random_device r;
-			uniform_int_distribution<> rect(lb, ub);
+			uniform_real_distribution<double> rect(lb, ub);
 			return rect(r);
 		}
 		double nextNormal(double mean, double dev) {
