@@ -8,6 +8,8 @@ set -x
 # how to link a bunch of *.o files into an exe
 # g++ build/objs/foobar.o build/objs/app.o -o build/bin/app
 
+. ./compile.sh
+
 g++ -std=c++14 -Wall -fmax-errors=1 -Isrc/lib -c src/tst/IOUtilsUnittest.cpp -o build/objs/IOUtilsUnittest.o
 g++ build/objs/IOUtils.o build/objs/IOUtilsUnittest.o -o build/bin/IOUtilsUnittest
 build/bin/IOUtilsUnittest
