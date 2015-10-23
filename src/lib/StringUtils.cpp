@@ -50,9 +50,14 @@ namespace seb {
     	 return (s.length() >= w) ? s.substr(s.length()-w, s.length()) : string(w-s.length(), p) + s;
      }
 
+     string			pad_around_string(const string& s, const int w, const char p)
+     {
+    	 return (string((w-s.length()+1)/2, 'P') + s + string((w-s.length())/2, 'P'));
+     }
+
      string 		center		(const string& s, const int w, const char p)
      {
-    	 return (s.length() >= w) ? s.substr((s.length()-w)/2,w) : string((w-s.length()+1)/2, 'P') + s + string((w-s.length())/2, 'P');
+    	 return (s.length() >= w) ? s.substr((s.length()-w)/2,w) : pad_around_string(s, w, p);
      }
 
      vector<string> split		(const string& s, const char delim)
