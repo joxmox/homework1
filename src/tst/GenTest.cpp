@@ -9,7 +9,7 @@
 #include <cassert>
 #include <vector>
 #include <iostream>
-#include "../lib/GenUtils.hpp"
+#include "GenUtils.hpp"
 #include <cctype>
 #include <cmath>
 
