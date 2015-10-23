@@ -29,11 +29,13 @@ BIN="build/bin"
 
 
 g++ ${CXX_FLAGS} -c ${SRCLIB}/IOUtils.cpp -o ${OBJS}/IOUtils.o
-
+g++ ${CXX_FLAGS} -c ${SRCLIB}/StringUtils.cpp -o ${OBJS}/StringUtils.o
 g++ ${CXX_FLAGS} -c ${SRCLIB}/GenUtils.cpp -o ${OBJS}/GenUtils.o
+g++ ${CXX_FLAGS} -c ${SRCTST}/StringTest.cpp -I${SRCLIB} -o ${OBJS}/StringTest.o
 g++ ${CXX_FLAGS} -c ${SRCTST}/GenTest.cpp -I${SRCLIB} -o ${OBJS}/GenTest.o
 
 ###
 ### Linking
 ###
 g++ ${OBJS}/GenUtils.o ${OBJS}/GenTest.o -o ${BIN}/GenTest
+g++ ${OBJS}/StringUtils.o ${OBJS}/StringTest.o -o ${BIN}/StringTest
