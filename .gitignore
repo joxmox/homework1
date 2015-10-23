@@ -1,0 +1,8 @@
+*.o
+*.gch
+*.pch
+*.so
+*.a
+*.out
+.project
+.cproject
