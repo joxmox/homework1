@@ -10,6 +10,7 @@
 #include "GenUtils.hpp"
 #include "IOUtils.hpp"
 #include <iomanip>
+#include <cstdlib>
 
 using namespace std;
 
@@ -23,19 +24,20 @@ struct Account {
 Account generateAccount() {
 	static unsigned nextAccNo = 1;
 	double newBalance = seb::gen::nextNormal(10000, 1000);
-	float newRate = seb::gen::nextUniform(0.2, 3.5);
+	float newRate = seb::gen::nextUniform(0.002, 0.035);
 	return {nextAccNo++, newBalance, newRate};
 }
 
 void printAcc(const Account& acc) {
 	cout << "Account no: " << acc.accno << ", Balance: $" <<
-			fixed << setprecision(2)<< acc.balance << ", Rate: " <<
-			fixed << setprecision(1) << acc.rate*100 << "%" << endl;
+			 fixed << setprecision(2)<<  acc.balance << ", Rate: " <<
+			 fixed << setprecision(1) <<  acc.rate*100 << "%" << endl;
 }
 
 int main(int argc, char* argv[]) {
 	int N {10};
 	string fileName {"build/accounts.dat"};
+	bool quiet = false;
 
 	for (auto i=1; i<argc; i++) {
 		string arg = argv[i];
@@ -43,20 +45,25 @@ int main(int argc, char* argv[]) {
 			N = stoi(argv[++i]);
 		} else if (arg == "-f") {
 			fileName = argv[++i];
+		} else if (arg == "-q") {
+			quiet = true;
 		} else {
 			cout << "Usage: " << argv[0] << " [-f <filename>] [-n <numberofaccs>]" << endl;
 			return 1;
 		}
 	}
 
+	string cmd = "rm -f " + fileName;
+	system(cmd.c_str());
+
 	double balSum1 {0};
 	for (auto i=0; i<N; i++) {
 		Account newAcc = generateAccount();
-		printAcc(newAcc);
+		if (!quiet) printAcc(newAcc);
 		balSum1 += newAcc.balance;
 		seb::io::store(fileName, i, sizeof(Account), reinterpret_cast<char*>(&newAcc));
 	}
-	cout << "Account balance sum(1) = " << fixed << setprecision(2) << balSum1 << endl;
+	cout << "Account balance sum(1) = " <<  fixed  << setprecision(2) <<  balSum1 << endl;
 	cout << "Written " << N << " records to " << fileName << endl;
     double balSum2 {0};
     for (auto i=0; i<N; i++) {
@@ -64,10 +71,10 @@ int main(int argc, char* argv[]) {
     	Account oldAcc;
     	seb::io::load(fileName, i, sizeof(Account), reinterpret_cast<char*>(&oldAcc));
     	balSum2 += oldAcc.balance;
-    	printAcc(oldAcc);
+    	if (!quiet) printAcc(oldAcc);
     }
     cout << "Read " << N << " records from " << fileName << endl;
-    cout << "Account balance sum(2) = " << balSum2 << endl;
+    cout << "Account balance sum(2) = " <<  fixed  << setprecision(2) << balSum2 << endl;
 
 
 
