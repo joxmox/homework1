@@ -11,7 +11,7 @@ set -x
 ###
 ### Variables
 ###
-CXX_FLAGS="-std=c++14 -Wall -fmax-errors=1"
+CXX_FLAGS="-std=c++14 -Wall -fmax-errors=1 -Wno-sign-compare"
 SRCLIB="src/lib"
 SRCTST="src/tst"
 OBJS="build/objs"
