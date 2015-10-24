@@ -11,3 +11,4 @@ build/
 *~
 CMakeLists.txt
 .idea/
+*settings.xml
