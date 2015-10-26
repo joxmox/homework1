@@ -1,15 +1,15 @@
-app=src/app/
-lib=src/lib/
-obj=build/objs/
-bin=build/bin/
+app = src/app/
+lib = src/lib/
+obj = build/objs/
+bin = build/bin/
 
-cpp=g++
-cfl=-std=c++14 -g -c -Wall -fmax-errors=1 -Wno-sign-compare -I$(lib)
-lnk=g++
-lfl=
+cpp = g++
+cfl = -std=c++14 -g -c -Wall -fmax-errors=1 -Wno-sign-compare -I$(lib)
+lnk = g++
+lfl =
 
-compile=mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
-link=mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
+compile = mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
+link =    mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
 
 all : $(bin)bissenisse
 
