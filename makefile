@@ -3,8 +3,10 @@ lib = src/lib/
 obj = build/objs/
 bin = build/bin/
 
+inc = -I$(lib)
+
 cpp = g++
-cfl = -std=c++14 -g -c -Wall -fmax-errors=1 -Wno-sign-compare -I$(lib)
+cfl = -std=c++14 -g -c -Wall -fmax-errors=1 -Wno-sign-compare $(inc)
 lnk = g++
 lfl =
 
