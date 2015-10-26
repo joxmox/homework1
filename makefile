@@ -11,9 +11,11 @@ lfl=
 compile=mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
 link=mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
 
-all : $(bin)bissenisse #$(bin)StringTest $(bin)GenTest $(bin)IOUtilstest
- 
+all : $(bin)bissenisse
 
+clean :
+	rm -rf build
+ 
 $(bin)bissenisse : $(obj)bissenisse.o $(obj)GenUtils.o $(obj)IOUtils.o
 	$(link)
 	
@@ -25,9 +27,3 @@ $(obj)GenUtils.o : $(lib)GenUtils.cpp $(lib)GenUtils.hpp
 	
 $(obj)IOUtils.o : $(lib)IOUtils.cpp $(lib)IOUtils.hpp
 	$(compile)
-	
-clean :
-	rm -rf build
-
-	
-
