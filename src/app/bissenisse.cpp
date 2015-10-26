@@ -23,7 +23,7 @@ struct Account {
 
 Account generateAccount() {
 	static unsigned nextAccNo = 1;
-	double newBalance = seb::gen::nextNormal(10000, 1000);
+	double newBalance = seb::gen::nextNormal(10000, 10000);
 	float newRate = seb::gen::nextUniform(0.002, 0.035);
 	return {nextAccNo++, newBalance, newRate};
 }
@@ -64,23 +64,20 @@ int main(int argc, char* argv[]) {
 		seb::io::store(fileName, i, sizeof(Account), reinterpret_cast<char*>(&newAcc));
 	}
 	cout << "Account balance sum(1) = " <<  fixed  << setprecision(2) <<  balSum1 << endl;
-	cout << "Written " << N << " records to " << fileName << endl;
+	cout << "Written " << N << " records to " << fileName << endl << endl;
     double balSum2 {0};
     for (auto i=0; i<N; i++) {
-    	//load(const string& filename, int idx, const int size, char* record);
     	Account oldAcc;
     	seb::io::load(fileName, i, sizeof(Account), reinterpret_cast<char*>(&oldAcc));
     	balSum2 += oldAcc.balance;
     	if (!quiet) printAcc(oldAcc);
     }
     cout << "Read " << N << " records from " << fileName << endl;
-    cout << "Account balance sum(2) = " <<  fixed  << setprecision(2) << balSum2 << endl;
-
-
-
-
-	//open file
-	//load accounts
-	//sum balances again and compare
+    cout << "Account balance sum(2) = " <<  fixed  << setprecision(2) << balSum2 << endl << endl;
+    if (balSum1 == balSum2)  {
+    	cout << "Account sums are equal!" << endl;
+    } else {
+    	cout << "Account sums are NOT equal!" << endl;
+    }
 	return 0;
 }
