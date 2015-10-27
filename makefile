@@ -2,6 +2,7 @@ app = src/app/
 lib = src/lib/
 obj = build/objs/
 bin = build/bin/
+tst = src/tst/
 
 inc = -I$(lib)
 
@@ -13,10 +14,19 @@ lfl =
 compile = mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
 link =    mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
 
-all : $(bin)bissenisse
+all : bissenisse testa
+
+bissenisse : $(bin)bissenisse
+
+testa : $(bin)GenTest $(bin)StringTest $(bin)IOUtilsUnittest
 
 clean :
 	rm -rf build
+
+testrun : testa
+	$(bin)GenTest && $(bin)StringTest && $(bin)IOUtilsUnittest
+
+
  
 $(bin)bissenisse : $(obj)bissenisse.o $(obj)GenUtils.o $(obj)IOUtils.o
 	$(link)
@@ -29,3 +39,30 @@ $(obj)GenUtils.o : $(lib)GenUtils.cpp $(lib)GenUtils.hpp
 	
 $(obj)IOUtils.o : $(lib)IOUtils.cpp $(lib)IOUtils.hpp
 	$(compile)
+	
+$(obj)StringUtils.o : $(lib)StringUtils.cpp $(lib)StringUtils.hpp
+	$(compile)
+
+$(bin)GenTest : $(obj)GenTest.o $(obj)GenUtils.o $(lib)GenUtils.hpp
+	$(link)
+	
+$(bin)StringTest : $(obj)StringTest.o $(obj)StringUtils.o $(lib)StringUtils.hpp
+	$(link)
+	
+$(bin)IOUtilsUnittest : $(obj)IOUtilsUnittest.o $(obj)IOUtils.o $(lib)IOUtils.hpp
+	$(link)
+
+$(obj)IOUtilsUnittest.o : $(tst)IOUtilsUnittest.cpp $(lib)IOUtils.hpp
+	$(compile)
+	
+$(obj)StringTest.o : $(tst)StringTest.cpp $(lib)StringUtils.hpp
+	$(compile)
+	
+$(obj)GenTest.o : $(tst)GenTest.cpp $(lib)GenUtils.hpp
+	$(compile)
+
+	
+
+	
+
+
