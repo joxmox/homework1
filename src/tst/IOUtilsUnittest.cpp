@@ -52,17 +52,18 @@ void testLoadStoreFunctions() {
 	}
 	SimpleRecord out_record;
 	seb::io::load(filename, 4, sizeof(out_record), (char*)&out_record);
+	cout << "Value is " << out_record.value << endl;
 	assert( out_record.value == 4);
 	remove(filename.c_str());
 
 }
+struct AdvancedRecord {
+	unsigned iValue;
+	double dValue;
+	float fValue;
+};
 
 void testLoadStoreFunctions2() {
-	struct AdvancedRecord {
-		unsigned iValue;
-		double dValue;
-		float fValue;
-	};
 	string filename(tmpnam(NULL));
 	for(int index=0;index<10; index++) {
 		AdvancedRecord ar = {index, 1.11111d + index, 1.22222f + index};
@@ -83,12 +84,63 @@ void testLoadStoreFunctions2() {
 
 }
 
+void printAdvancedRecord(const AdvancedRecord& ar) {
+	cout << "int: " << ar.iValue << " double: "<< ar.dValue << " float: " << ar.fValue << endl;
+}
+
+void printAllRecordsFromFile(const string& filename) {
+	int size = seb::io::size(filename);
+	int recCount = size / sizeof(AdvancedRecord);
+	for(int index=0; index<recCount; index++) {
+		AdvancedRecord out_record;
+		seb::io::load(filename, index, sizeof(AdvancedRecord), reinterpret_cast<char*>(&out_record));
+		printAdvancedRecord(out_record);
+	}
+
+}
+
+void testLoadStoreFunctions3() {
+	cout << "Testing to overwrite records" << endl;
+	string filename(tmpnam(NULL));
+	for(unsigned int index=0;index<10; index++) {
+		AdvancedRecord ar = {index, 1.11111d + index, 1.22222f + index};
+		seb::io::store(filename, index, sizeof(AdvancedRecord), reinterpret_cast<char*>(&ar));
+	}
+	int recordCount = seb::io::size(filename) / sizeof(AdvancedRecord);
+
+	for(unsigned int index=0;index<10; index++) {
+		AdvancedRecord ar = {10 + index, 1.11111d + index, 1.22222f + index};
+		seb::io::store(filename, index, sizeof(AdvancedRecord), reinterpret_cast<char*>(&ar));
+	}
+	int recordCount2 = seb::io::size(filename) / sizeof(AdvancedRecord);
+	assert( recordCount == recordCount2);
+	cout << "Test passed" << endl;
+	remove(filename.c_str());
+
+}
+void testLoadStoreFunctions4() {
+	cout << "Testing to store record at index past filelength" << endl;
+	string filename(tmpnam(NULL));
+	for(int index=0;index<10; index++) {
+		AdvancedRecord ar = {index, 1.11111d + index, 1.22222f + index};
+		seb::io::store(filename, index + 10, sizeof(ar), reinterpret_cast<char*>(&ar));
+	}
+	int recordCount = seb::io::size(filename) / sizeof(AdvancedRecord);
+
+	assert( recordCount == 20);
+	cout << "Test passed" << endl;
+	remove(filename.c_str());
+
+}
+
 int main(int argc, char* argv[]) {
 	testTextFunctions();
 	testLinesFunctions();
 	testSizeFunctions();
 	testLoadStoreFunctions();
 	testLoadStoreFunctions2();
+	testLoadStoreFunctions3();
+	testLoadStoreFunctions4();
 
 	cout << "All test completed." << endl;
 	return 0;

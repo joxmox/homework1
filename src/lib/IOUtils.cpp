@@ -9,6 +9,7 @@
 #include <iostream>
 #include <algorithm>
 #include <unistd.h>
+#include <cstdio>
 #include "IOUtils.hpp"
 using namespace std;
 
@@ -45,21 +46,44 @@ namespace seb {
 			return file.tellg();
 		}
 		void load(const string& filename, int idx, const int size, char* record) {
-			fstream file(filename, ios::in | ios::binary);
-			file.seekg(idx * size, ios_base::beg);
+			fstream file(filename, ios_base::in | ios_base::binary);
+			file.seekg(idx * size);
 			file.read(record, size);
 		}
 
-		void store(const string& filename, int idx, const int size, char* record) {
+		void store_old(const string& filename, int idx, const int size, char* record) {
 			int filesize = seb::io::size(filename);
 			if(filesize < (idx * size)) {
+				cout << "resizing" <<endl;
 				truncate(filename.c_str(), (idx*size));
 			}
-			fstream file(filename, ios::app | ios::out | ios::binary);
+			fstream file(filename,  ios_base::out | ios_base::binary );
 
 			int index = idx * size;
-			file.seekp(index, ios_base::beg);
+			file.seekp(index);
+
+			if (file.fail()) cout << "FAIL!!! setting index to " << index << endl;
+			cout << "Index is " << file.tellp() << endl;
 			file.write(record, size);
+			file.flush();
+		}
+		void store(const string& filename, int idx, const int size, char* record) {
+			// first create file if it doesnt exist...
+			FILE* pFile = fopen(filename.c_str(), "a");
+			if(!pFile) {
+				//failed to open file
+				cerr << "Failed to open file " << filename << endl;
+				return;
+			}
+			fclose(pFile);
+			pFile = fopen(filename.c_str(), "r+");
+			int writePos = idx * size;
+			if( pFile ) {
+				if(fseek(pFile, writePos, SEEK_SET) == 0) {
+					fwrite(record, size, 1, pFile);
+				}
+				fclose(pFile);
+			}
 		}
 	}
 }
