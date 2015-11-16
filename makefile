@@ -47,6 +47,9 @@ AccountDBgenerator : $(bin)AccountDBgenerator
 
 AccountsDbDumper : $(bin)AccountsDbDumper
 	$(run)
+	
+ProcessTrans : $(bin)ProcessTrans
+	$(run)
 
 GenTest : $(bin)GenTest
 	$(run)
@@ -141,15 +144,19 @@ $(bin)boolean_test : $(obj)boolean_test.o
 	
 
 
-##### Build the Account class
+##### Build the Account and Transaction classes
 	
-$(obj)Account.o : $(lib)Account.cpp 
+$(obj)Account.o : $(lib)Account.cpp $(lib)Account.hpp 
+	$(compile)
+	
+$(obj)Transaction.o : $(lib)Transaction.cpp $(lib)Transaction.hpp
 	$(compile)
 	
 
 
-##### build the Homework2 application
-	
+##### build the Homework2 applications
+
+##### AccountDBgenerator
 $(bin)AccountDBgenerator : $(obj)AccountDBgenerator.o $(obj)Account.o $(obj)StringUtils.o $(obj)GenUtils.o
 	$(link)
 
@@ -163,3 +170,10 @@ $(bin)AccountsDbDumper : $(obj)AccountsDbDumper.o $(obj)Account.o
 $(obj)AccountsDbDumper.o : $(app)AccountsDbDumper.cpp $(lib)IndexedFile.hpp 
 	$(compile)
 
+##### build the Process Transactions application
+
+$(bin)ProcessTrans : $(obj)ProcessTrans.o $(obj)Account.o $(obj)Transaction.o $(obj)StringUtils.o
+	 $(link)
+	 
+$(obj)ProcessTrans.o : $(app)ProcessTrans.cpp $(lib)Account.hpp $(lib)IndexedFile.hpp $(lib)Transaction.hpp
+	$(compile)
