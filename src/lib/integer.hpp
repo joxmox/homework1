@@ -59,6 +59,8 @@ namespace SEB {
 				value(v);
 				return *this;
 			}
+			integer<N>& operator+=(int value) { this->value(this->value() + value);return *this; }
+
 		};
 
 		template<size_t N>
