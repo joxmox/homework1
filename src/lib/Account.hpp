@@ -9,24 +9,28 @@
 #define SRC_LIB_ACCOUNT_HPP_
 
 #include <string>
+#include "text.hpp"
+#include "integer.hpp"
+
 using namespace std;
 
-const bool verbose = true;
 
 namespace SEB {
 namespace trans{
 
+using namespace SEB::datatypes;
+
 class Account {
-	string accno="unknown";
-	float accbal=0;
+	text<8> accno;
+	integer<8> accbal;
 
 public:
 	Account();
-	Account(const string accno, const float accbal);
+	Account(const string accno, const int accbal);
 	Account(const string csv);
 	virtual ~Account();
 
-	void updateBalace(const string updateAccno, const float updateAmount); // Throws exception if not succesful
+	void updateBalace(const string updateAccno, const int updateAmount); // Throws exception if not succesfull
 	string toString() const;
 };
 

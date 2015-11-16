@@ -12,17 +12,14 @@ namespace SEB {
 namespace trans {
 
 Account::Account() {
-	// TODO Auto-generated constructor stub
-
+	accno="";
+	accbal = 0;
 }
 
-Account::Account(const string newAccno, const float newAccbal)
+Account::Account(const string newAccno, const int newAccbal)
 {
 	accno = newAccno;
 	accbal = newAccbal;
-
-	if (verbose) cout << "Creating Account with values" << endl;
-
 }
 Account::Account(const string csv) {
 	// TODO
@@ -31,12 +28,11 @@ Account::Account(const string csv) {
 
 Account::~Account() {
 	// TODO Auto-generated destructor stub
-	if (verbose) cout << "terminating Account" << endl;
 }
 
 string Account::toString() const
 {
-	return "Account: " + accno + ", balance: " + to_string(accbal);
+	return "Account: " + accno.value() + ", balance: " + to_string(accbal.value());
 }
 
 ostream& operator <<(ostream& os, const Account& acc)

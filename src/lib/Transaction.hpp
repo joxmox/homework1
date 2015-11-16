@@ -11,8 +11,6 @@
 #include <string>
 #include "StringUtils.hpp"
 
-const bool verbose = true;
-
 namespace SEB {
 namespace trans {
 
