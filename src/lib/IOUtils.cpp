@@ -24,7 +24,7 @@ namespace seb {
 			return result;
 		}
 		void text(const string& filename, const string& content) {
-			ofstream file(filename);
+			ofstream file(filename,std::ios_base::app);
 			file << content;
 		}
 		vector<string> lines(const string& filename) {

@@ -34,6 +34,14 @@ public:
 	int getAmount() const {
 		return amount;
 	}
+
+	void setAccno(const string& accno = "") {
+		this->accno = accno;
+	}
+
+	void setAmount(int amount = 0) {
+		this->amount = amount;
+	}
 };
 
 } /* namespace trans */

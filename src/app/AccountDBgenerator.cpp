@@ -36,13 +36,13 @@ std::string nextAccno() {
 int main(int argc, char* argv[])
 {
 	int N = 10;
-	string filename = "accounts.db";
+	string accountfile = "accounts.db";
 	bool verbose = false;
 
 	for (int k=1; k<argc; ++k) {
 		string arg = argv[k];
 		if (arg == "-f") {
-			filename = argv[++k];
+			accountfile = argv[++k];
 		} else if (arg == "-n") {
 			N = stoi(argv[++k]);
 		} else if (arg == "-v") {
@@ -53,9 +53,9 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	if (verbose) cout << "Creating " << N << " accounts in DB file " << filename << endl;
+	if (verbose) cout << "Creating " << N << " accounts in DB file " << accountfile << endl;
 
-	IndexedFile<SEB::trans::Account> db {filename, OpenMode::out};
+	IndexedFile<SEB::trans::Account> db {accountfile, OpenMode::out};
 	for (auto i=0; i<N; i++)
 	{
 		string newAccno = nextAccno();

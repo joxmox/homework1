@@ -32,6 +32,14 @@ public:
 
 	void updateBalace(const string updateAccno, const int updateAmount); // Throws exception if not succesfull
 	string toString() const;
+
+	const integer<8>& getAccbal() const {
+		return accbal;
+	}
+
+	const text<8>& getAccno() const {
+		return accno;
+	}
 };
 
 ostream& operator <<(ostream& os, const Account& acc);
