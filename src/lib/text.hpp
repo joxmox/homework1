@@ -5,7 +5,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace NNN {
+namespace SEB {
     using namespace std;
 
     template<size_t N>
@@ -26,11 +26,11 @@ namespace NNN {
         constexpr size_t capacity() const { return N; }
 
         text() { 
-            //...what should the default be?
+        	pad(0);
         }
 
         text(const string& s) {
-            //...what to do with s?
+			value(s);
         }
 
         ~text() = default;
@@ -53,35 +53,41 @@ namespace NNN {
         }
 
         operator string() const { 
-            //...
+        	return value();
         }
 
         text<N>& operator=(const string& txt) {
-            //...
+            value(txt);
             return *this;
         }
     };
 
     template<size_t N>
     inline ostream& operator<<(ostream& os, const text<N>& s) {
-        //...
+        return os << s.value();
+
     }
 
     template<size_t N>
     inline istream& operator>>(istream& is, text<N>& s) {
         char buf[N + 1];
-        //...read into buf, set null-byte, assign to s
+        is >> buf;
+        s = buf;
         return is;
     }
 
     template<size_t N>
     inline bool operator==(const text<N>& left, const text<N>& right) {
-        //...
+    	string sLeft = left;
+    	string sRight = right;
+    	return sLeft == sRight;
     }
 
     template<size_t N>
     inline bool operator<(const text<N>& left, const text<N>& right) {
-        //...
+    	string sLeft = left;
+    	string sRight = right;
+    	return sLeft < sRight;
     }
 
 }
