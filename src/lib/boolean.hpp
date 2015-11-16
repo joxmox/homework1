@@ -37,9 +37,9 @@ namespace SEB {
 		}
 
 		inline istream& operator>>(istream& is, boolean& s) {
-			char buf[1];
+			char buf;
 			is >> buf;
-			s = buf[0];
+			s = buf;
 			return is;
 		}
 
