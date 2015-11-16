@@ -4,7 +4,7 @@
 #include <cassert>
 
 using namespace std;
-using SEB::text;
+using SEB::datatypes::text;
 
 void empty_text4_should_have_capacity_4_but_zero_size() {
     text<4> t;
