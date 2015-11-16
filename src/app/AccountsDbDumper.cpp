@@ -13,12 +13,9 @@ using namespace SEB::trans;
 
 int main(int argc, char* argv[])
 {
-	int N = 10;
 	string filename = "accounts.db";
-	
 	IndexedFile<SEB::trans::Account> db {filename, OpenMode::in};
-	int count = db.count();
-	for (Account acc :: db) {
+	for (auto  acc : db) {
 		cout << acc << endl; 
 	}
 }
