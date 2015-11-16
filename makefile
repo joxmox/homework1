@@ -20,6 +20,8 @@ bissenisse : $(bin)bissenisse
 
 testa : $(bin)GenTest $(bin)StringTest $(bin)IOUtilsUnittest
 
+indextest : $(bin)IndexedFile_test
+
 clean :
 	rm -rf build
 
@@ -60,9 +62,10 @@ $(obj)StringTest.o : $(tst)StringTest.cpp $(lib)StringUtils.hpp
 	
 $(obj)GenTest.o : $(tst)GenTest.cpp $(lib)GenUtils.hpp
 	$(compile)
-
 	
-
 	
+$(obj)IndexedFile_test.o : $(tst)IndexedFile_test.cpp $(lib)IndexedFile.hpp $(lib)text.hpp
+	$(compile)
 
-
+$(bin)IndexedFile_test : $(obj)IndexedFile_test.o
+	$(link)
