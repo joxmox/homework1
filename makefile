@@ -13,6 +13,7 @@ lfl =
 
 compile = mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
 link =    mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
+run = $<
 
 all : bissenisse testa
 
@@ -20,7 +21,20 @@ bissenisse : $(bin)bissenisse
 
 testa : $(bin)GenTest $(bin)StringTest $(bin)IOUtilsUnittest
 
-indextest : $(bin)IndexedFile_test
+index_test : $(bin)IndexedFile_test
+	$(run)
+
+text_test : $(bin)text_test
+	$(run)
+	
+integer_test : $(bin)integer_test
+	$(run)
+	
+real_test : $(bin)real_test
+	$(run)
+	
+AccountDBgenerator : $(bin)AccountDBgenerator
+	$(run)
 
 clean :
 	rm -rf build
@@ -69,3 +83,36 @@ $(obj)IndexedFile_test.o : $(tst)IndexedFile_test.cpp $(lib)IndexedFile.hpp $(li
 
 $(bin)IndexedFile_test : $(obj)IndexedFile_test.o
 	$(link)
+	
+$(obj)text_test.o : $(tst)text_test.cpp $(lib)text.hpp
+	$(compile)
+	
+$(bin)text_test : $(obj)text_test.o
+	$(link)
+	
+$(obj)integer_test.o : $(tst)integer_test.cpp $(lib)integer.hpp
+	$(compile)
+	
+$(bin)integer_test : $(obj)integer_test.o
+	$(link)
+	
+$(obj)real_test.o : $(tst)real_test.cpp $(lib)real.hpp
+	$(compile)
+	
+$(bin)real_test : $(obj)real_test.o
+	$(link)
+	
+$(bin)AccountDBgenerator : $(obj)AccountDBgenerator.o $(obj)Account.o $(obj)StringUtils.o $(obj)GenUtils.o
+	$(link)
+
+$(obj)AccountDBgenerator.o : $(app)AccountDBgenerator.cpp $(lib)IndexedFile.hpp $(lib)StringUtils.hpp $(lib)GenUtils.hpp $(lib)IOUtils.hpp
+	$(compile)
+	
+$(obj)Account.o : $(lib)Account.cpp 
+	$(compile)
+	
+#include "IndexedFile.hpp"
+#include "StringUtils.hpp"
+#include "GenUtils.hpp"
+#include "IOUtils.hpp"
+#include "Account.hpp"
