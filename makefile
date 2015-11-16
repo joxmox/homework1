@@ -1,40 +1,72 @@
+##### Locations
+
 app = src/app/
 lib = src/lib/
 obj = build/objs/
 bin = build/bin/
 tst = src/tst/
-
 inc = -I$(lib)
+
+##### Build settings
 
 cpp = g++
 cfl = -std=c++14 -g -c -Wall -fmax-errors=1 -Wno-sign-compare $(inc)
 lnk = g++
 lfl =
-
 compile = mkdir -p $(obj); $(cpp) $(cfl) $< -o $@
 link =    mkdir -p $(bin); $(lnk) $(lfl) $+ -o $@
+run = $<
 
-all : bissenisse testa
+##### Targets to use
 
-bissenisse : $(bin)bissenisse
-
-testa : $(bin)GenTest $(bin)StringTest $(bin)IOUtilsUnittest
-
-indextest : $(bin)IndexedFile_test
-
+all : AccountDBgenerator
+	
 clean :
 	rm -rf build
 
-testrun : testa
-	$(bin)GenTest && $(bin)StringTest && $(bin)IOUtilsUnittest
+bissenisse : $(bin)bissenisse
+	$(run)
+
+index_test : $(bin)IndexedFile_test
+	$(run)
+
+text_test : $(bin)text_test
+	$(run)
+	
+integer_test : $(bin)integer_test
+	$(run)
+	
+real_test : $(bin)real_test
+	$(run)
+	
+boolean_test : $(bin)boolean_test
+	$(run)
+	
+AccountDBgenerator : $(bin)AccountDBgenerator
+	$(run)
+
+GenTest : $(bin)GenTest
+	$(run)
+	
+StringTest : $(bin)StringTest
+	$(run)
+
+IOUtilsUnittest : $(bin)IOUtilsUnittest
+	$(run)
+	
+all_tests : index_test text_test integer_test real_test boolean_test
 
 
+##### Build the application bissenisse
  
 $(bin)bissenisse : $(obj)bissenisse.o $(obj)GenUtils.o $(obj)IOUtils.o
 	$(link)
 	
 $(obj)bissenisse.o : $(app)bissenisse.cpp $(lib)GenUtils.hpp $(lib)IOUtils.hpp
 	$(compile)
+	
+
+##### Build objects for Gen, IO and String utils
 
 $(obj)GenUtils.o : $(lib)GenUtils.cpp $(lib)GenUtils.hpp
 	$(compile)
@@ -44,6 +76,9 @@ $(obj)IOUtils.o : $(lib)IOUtils.cpp $(lib)IOUtils.hpp
 	
 $(obj)StringUtils.o : $(lib)StringUtils.cpp $(lib)StringUtils.hpp
 	$(compile)
+
+
+##### Build test programs for Gen IO and String Util functions 
 
 $(bin)GenTest : $(obj)GenTest.o $(obj)GenUtils.o $(lib)GenUtils.hpp
 	$(link)
@@ -62,10 +97,60 @@ $(obj)StringTest.o : $(tst)StringTest.cpp $(lib)StringUtils.hpp
 	
 $(obj)GenTest.o : $(tst)GenTest.cpp $(lib)GenUtils.hpp
 	$(compile)
-	
-	
+
+
+
+##### Build the test file for the IndexedFile class
+
 $(obj)IndexedFile_test.o : $(tst)IndexedFile_test.cpp $(lib)IndexedFile.hpp $(lib)text.hpp
 	$(compile)
+	
+
+	
+##### Build the test files for the text, integer, real and boolean data types
 
 $(bin)IndexedFile_test : $(obj)IndexedFile_test.o
 	$(link)
+	
+$(obj)text_test.o : $(tst)text_test.cpp $(lib)text.hpp
+	$(compile)
+	
+$(bin)text_test : $(obj)text_test.o
+	$(link)
+	
+$(obj)integer_test.o : $(tst)integer_test.cpp $(lib)integer.hpp
+	$(compile)
+	
+$(bin)integer_test : $(obj)integer_test.o
+	$(link)
+	
+$(obj)real_test.o : $(tst)real_test.cpp $(lib)real.hpp
+	$(compile)
+	
+$(bin)real_test : $(obj)real_test.o
+	$(link)
+	
+$(obj)boolean_test.o : $(tst)boolean_test.cpp $(lib)boolean.hpp
+	$(compile)
+	
+$(bin)boolean_test : $(obj)boolean_test.o
+	$(link)
+	
+
+
+##### Build the Account class
+	
+$(obj)Account.o : $(lib)Account.cpp 
+	$(compile)
+	
+
+
+##### build the Homework2 application
+	
+$(bin)AccountDBgenerator : $(obj)AccountDBgenerator.o $(obj)Account.o $(obj)StringUtils.o $(obj)GenUtils.o
+	$(link)
+
+$(obj)AccountDBgenerator.o : $(app)AccountDBgenerator.cpp $(lib)IndexedFile.hpp $(lib)StringUtils.hpp $(lib)GenUtils.hpp $(lib)IOUtils.hpp
+	$(compile)
+
+
