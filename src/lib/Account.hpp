@@ -30,8 +30,13 @@ public:
 	Account(const string csv);
 	virtual ~Account();
 
-	void updateBalace(const string updateAccno, const int updateAmount); // Throws exception if not succesfull
+	int getBalance() const {return accbal.value();}
+	string getAccno() const {return accno.value();}
+	void updateBalance(const int); // Throws exception if not succesfull
 	string toString() const;
+	string indexKey() {
+		return accno;
+	}
 };
 
 ostream& operator <<(ostream& os, const Account& acc);

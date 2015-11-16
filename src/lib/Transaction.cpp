@@ -25,8 +25,6 @@ Transaction::Transaction(const string transAccno, const int transAmount)
 {
 	accno = transAccno;
 	amount = transAmount;
-
-	if (verbose) cout << "Creating Transaction with values" << endl;
 }
 
 Transaction::Transaction(const string transCSV)
@@ -35,14 +33,10 @@ Transaction::Transaction(const string transCSV)
 
 	accno = v[0];
 	amount = stoi(v[1]);
-
-	if (verbose) cout << "Creating Transaction with CSV string" << endl;
 }
 
 Transaction::~Transaction() {
 	// TODO Auto-generated destructor stub
-
-	if (verbose) cout << "Termination Transaction" << endl;
 }
 
 string Transaction::toCSV() const

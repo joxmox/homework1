@@ -35,6 +35,11 @@ string Account::toString() const
 	return "Account: " + accno.value() + ", balance: " + to_string(accbal.value());
 }
 
+void Account::updateBalance(const int amt) {
+	//accbal += amt; waiting for karl
+	accbal.value(accbal.value() + amt);
+}
+
 ostream& operator <<(ostream& os, const Account& acc)
 {
 	return os << acc.toString();
