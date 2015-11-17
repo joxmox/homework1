@@ -65,17 +65,12 @@ namespace SEB {
 
 		template<size_t N, unsigned short D>
 		inline bool operator==(const real<N,D>& left, const real<N,D>& right) {
-			float fLeft = left;
-			float fRight = right;
-
-			return abs(fLeft-fRight) < 0.000001;
+			return abs(left.value() - right.value()) < 0.000001;
 		}
 
 		template<size_t N, unsigned short D>
 		inline bool operator<(const real<N,D>& left, const real<N,D>& right) {
-			float fLeft = left;
-			float fRight = right;
-			return fLeft < fRight;
+			return left.value() <  right.value();
 		}
 	}
 }

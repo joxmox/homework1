@@ -79,16 +79,12 @@ namespace SEB {
 
 		template<size_t N>
 		inline bool operator==(const text<N>& left, const text<N>& right) {
-			string sLeft = left;
-			string sRight = right;
-			return sLeft == sRight;
+			return left.value() == right.value();
 		}
 
 		template<size_t N>
 		inline bool operator<(const text<N>& left, const text<N>& right) {
-			string sLeft = left;
-			string sRight = right;
-			return sLeft < sRight;
+			return left.value() < right.value();
 		}
 	}
 }
