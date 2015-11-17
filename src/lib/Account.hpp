@@ -30,7 +30,9 @@ public:
 	Account(const string csv);
 	virtual ~Account();
 
-	void updateBalace(const string updateAccno, const int updateAmount); // Throws exception if not succesfull
+	int getBalance() const {return accbal.value();}
+	string getAccno() const {return accno.value();}
+	void updateBalance(const int); // Throws exception if not succesfull
 	string toString() const;
 
 	const integer<8>& getAccbal() const {
@@ -38,6 +40,9 @@ public:
 	}
 
 	const text<8>& getAccno() const {
+		return accno;
+	}
+	string indexKey() {
 		return accno;
 	}
 };

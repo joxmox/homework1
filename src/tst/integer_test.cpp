@@ -61,6 +61,11 @@ void in_stream_should_work() {
 	assert(n.value() == 1234);
 }
 
+void test_adding() {
+	integer<4> n{25};
+	n += 5;
+	assert (n.value() == 30);
+}
 
 
 int main(int numArgs, char* args[]) {
@@ -71,7 +76,7 @@ int main(int numArgs, char* args[]) {
     relops_should_work();
     out_stream_should_work();
     in_stream_should_work();
-
+    test_adding();
     cout << "All tests passed\n";
     return 0;
 }

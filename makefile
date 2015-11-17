@@ -45,6 +45,9 @@ boolean_test : $(bin)boolean_test
 AccountDBgenerator : $(bin)AccountDBgenerator
 	$(run)
 
+AccountsDbDumper : $(bin)AccountsDbDumper
+	$(run)
+
 GenTest : $(bin)GenTest
 	$(run)
 	
@@ -152,5 +155,11 @@ $(bin)AccountDBgenerator : $(obj)AccountDBgenerator.o $(obj)Account.o $(obj)Stri
 
 $(obj)AccountDBgenerator.o : $(app)AccountDBgenerator.cpp $(lib)IndexedFile.hpp $(lib)StringUtils.hpp $(lib)GenUtils.hpp $(lib)IOUtils.hpp
 	$(compile)
+	
+##### build the db dumper  application
+$(bin)AccountsDbDumper : $(obj)AccountsDbDumper.o $(obj)Account.o 
+	$(link)
 
+$(obj)AccountsDbDumper.o : $(app)AccountsDbDumper.cpp $(lib)IndexedFile.hpp 
+	$(compile)
 
