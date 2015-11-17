@@ -12,6 +12,8 @@
 
 using namespace SEB::trans;
 
+const bool verbose = true;
+
 void toCSVshouldWork()
 {
 	if (verbose) cout << "toCSVshouldWork" << endl;
@@ -32,6 +34,7 @@ void constructorCSVshouldWork()
 
 int main()
 {
+
 	cout << "Testing Transaction begins" << endl;
 	toCSVshouldWork();
 	constructorCSVshouldWork();

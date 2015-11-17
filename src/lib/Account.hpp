@@ -11,6 +11,7 @@
 #include <string>
 #include "text.hpp"
 #include "integer.hpp"
+#include "StringUtils.hpp"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ using namespace SEB::datatypes;
 class Account {
 	text<8> accno;
 	integer<8> accbal;
+	const char	delim=';';
 
 public:
 	Account();

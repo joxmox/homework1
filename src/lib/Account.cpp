@@ -22,8 +22,10 @@ Account::Account(const string newAccno, const int newAccbal)
 	accbal = newAccbal;
 }
 Account::Account(const string csv) {
-	// TODO
+	vector<string> v = seb::str::split(csv, delim);
 
+	accno = v[0];
+	accbal = stoi(v[1]);
 }
 
 Account::~Account() {
