@@ -67,7 +67,7 @@ int main(int argc, char* argv[]){
 			trans.setAccno(nextString(accnos));
 
 			trans.setAmount(static_cast<int>( seb::gen::nextNormal(0, 500) ));
-			cout<<trans.toCSV()<<endl;
+			if (verbose) cout<<trans.toCSV()<<endl;
             seb::io::text(transfile, trans.toCSV()+"\n");
 		}
 
