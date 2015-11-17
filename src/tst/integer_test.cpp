@@ -4,7 +4,10 @@
 #include <cassert>
 #include <utility>
 
+
 using namespace std;
+
+
 using SEB::datatypes::integer;
 
 void empty_should_have_value_zero() {
@@ -37,11 +40,17 @@ void overflow_should_throw() {
 }
 
 void relops_should_work() {
-    integer<4> n1{10};
+	using namespace std::rel_ops;
+	integer<4> n1{10};
     integer<4> n2{10};
+    integer<4> n3{5};
+
     assert(n1 == n2);
-    n1 = 5;
-    assert(n1 < n2);
+    assert(n1 != n3);
+    assert(n3 < n1);
+    assert(n1 > n3);
+    assert(n1 >= n2);
+    assert(n1 <= n2);
 }
 
 void out_stream_should_work() {
