@@ -78,16 +78,12 @@ namespace SEB {
 
 		template<size_t N>
 		inline bool operator==(const integer<N>& left, const integer<N>& right) {
-			int iLeft = left;
-			int iRight = right;
-			return iLeft == iRight;
+			return left.value() == right.value();
 		}
 
 		template<size_t N>
 		inline bool operator<(const integer<N>& left, const integer<N>& right) {
-			int iLeft = left;
-			int iRight = right;
-			return iLeft < iRight;
+			return left.value() < right.value();
 		}
 	}
 }

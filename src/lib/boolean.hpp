@@ -44,15 +44,11 @@ namespace SEB {
 		}
 
 		inline bool operator==(const boolean& left, const boolean& right) {
-			bool bLeft = left;
-			bool bRight = right;
-			return bLeft == bRight;
+			return left.value() == right.value();
 		}
 
 		inline bool operator<(const boolean& left, const boolean& right) {
-			bool bLeft = left;
-			bool bRight = right;
-			return bLeft < bRight;
+			return left.value() < right.value();
 		}
 	}
 }
