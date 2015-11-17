@@ -60,6 +60,9 @@ StringTest : $(bin)StringTest
 IOUtilsUnittest : $(bin)IOUtilsUnittest
 	$(run)
 	
+Account_test : $(bin)Account_test
+	$(run)
+	
 all_tests : index_test text_test integer_test real_test boolean_test
 
 
@@ -153,6 +156,13 @@ $(obj)Transaction.o : $(lib)Transaction.cpp $(lib)Transaction.hpp
 	$(compile)
 	
 
+##### Build the test files for the text, integer, real and boolean data types
+
+$(bin)Account_test : $(obj)Account.o $(obj)StringUtils.o $(obj)Account_test.o
+	$(link)
+	
+$(obj)Account_test.o : $(tst)Account_test.cpp $(lib)text.hpp
+	$(compile)
 
 ##### build the Homework2 applications
 
